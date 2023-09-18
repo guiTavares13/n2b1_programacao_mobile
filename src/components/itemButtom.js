@@ -3,15 +3,15 @@ import { Dimensions } from 'react-native';
 import { useNavigation } from "@react-navigation/native"; 
 
 export default (props) => {
-    console.log(props);
-    const { id, title, subtitle, price, time } = props;
+   
+    const { id, title, subtitle, price, time } = props.item;
 
     const navigation = useNavigation();
 
-    function detailProduct(props) {
-        navigation.navigate('DetailProduct', { ...props });
+    function detailProduct() {
+        navigation.navigate('DetailProduct', { id, title, subtitle, price, time });
     }
-
+    
     return (
         <TouchableHighlight style={styles.container} onPress={detailProduct}>
             <View style={styles.buttom}>

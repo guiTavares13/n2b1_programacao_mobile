@@ -57,7 +57,7 @@ export default function Products(props) {
         <ScrollView>
             <View style={styles.items}>
                 {items.map(item => (
-                    <ItemButtom key={item.id} item={props} />
+                    <ItemButtom key={item.id} item={item} />
                 ))}
             </View>
         </ScrollView>
