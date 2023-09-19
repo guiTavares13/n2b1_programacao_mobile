@@ -9,11 +9,12 @@ import {
     Dimensions,
 } from "react-native";
 
-const CustomListView = ({ data, onItemPress }) => {
+const CustomListView = ({ colaboratorData, onItemPress }) => {
+    console.log(colaboratorData)
     return (
         <View style={styles.flatList}>
             <FlatList
-                data={data}
+                data={colaboratorData}
                 renderItem={({ item }) => (
                     <DataItem item={item} onItemPress={onItemPress} />
                 )}

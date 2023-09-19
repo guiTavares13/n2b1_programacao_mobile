@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -13,14 +13,32 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomListView from '../components/customListView';
+import { colaboratorData } from '../json/worker';
+import { initializeDatabase, insertItem, fetchItems, deleteAllItems } from '../database/purshase';
 
 export default function DetailProduct() {
   const route = useRoute();
   const { id, title, subtitle, price, time } = route.params;
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [customDateStyles, setCustomDateStyles] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+
 
   const [listVisible, setListVisible] = useState(false);
+
+  useEffect(() => {
+    if (selectedPerson) {
+      setCustomDateStyles(
+        selectedPerson.availableDates.map((date) => ({
+          date,
+          style: { backgroundColor: 'green' },
+          textStyle: { color: 'white' },
+          containerStyle: {},
+        }))
+      );
+    }
+  }, [selectedPerson]);
 
   const openCalendar = () => {
     setListVisible(false);
@@ -46,55 +64,42 @@ export default function DetailProduct() {
     }));
   };
 
+  const saveData = () => {
+    if (!selectedPerson || !selectedDate) {
+      alert('Por favor, selecione um colaborador e uma data antes de salvar.');
+      return;
+    }
+  
+    const item = {
+      title: title,
+      subtitle: subtitle,
+      img: 'assets/adaptive-icon.png', // Certifique-se de fornecer o caminho correto para esta imagem
+      price: price,
+      time: time,
+      nameColaborator: selectedPerson.name,
+      specialty: subtitle,
+      scheduledData: selectedDate,
+    };
+  
+    insertItem(item)
+      .then(() => {
+        alert('Dados salvos com sucesso!');
+        // Redireciona o usuário ou faz alguma outra ação após salvar os dados
+      })
+      .catch((error) => {
+        alert('Erro ao salvar os dados: ' + error.message);
+      });
+  };
+  
+  
+
+
   const handleItemPress = (item) => {
     console.log('Item selecionado:', item);
     setSelectedPerson(item);
     setListVisible(false);
     openCalendar();
   };
-
-  const data = [
-    {
-      id: 1,
-      name: 'Dayanna Santos',
-      img: '',
-      availableDates: [
-        new Date(2023, 9, 10),
-        new Date(2023, 9, 12),
-        new Date(2023, 10, 5),
-      ],
-    },
-    {
-      id: 2,
-      name: 'Dayanna Santos',
-      img: '',
-      availableDates: [
-        new Date(2023, 9, 10),
-        new Date(2023, 9, 12),
-        new Date(2023, 10, 5),
-      ],
-    },
-    {
-      id: 3,
-      name: 'Dayanna Santos',
-      img: '',
-      availableDates: [
-        new Date(2023, 9, 10),
-        new Date(2023, 9, 12),
-        new Date(2023, 10, 5),
-      ],
-    },
-    {
-      id: 4,
-      name: 'Dayanna Santos',
-      img: '',
-      availableDates: [
-        new Date(2023, 9, 10),
-        new Date(2023, 9, 12),
-        new Date(2023, 10, 5),
-      ],
-    },
-  ];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -119,7 +124,7 @@ export default function DetailProduct() {
 
       {listVisible && (
         <View style={styles.customListViewWrapper}>
-          <CustomListView data={data} onItemPress={handleItemPress} />
+          <CustomListView colaboratorData={colaboratorData} onItemPress={handleItemPress} />
         </View>
       )}
 
@@ -133,35 +138,53 @@ export default function DetailProduct() {
           <View style={styles.modalContainer}>
             <View style={styles.calendarWrapper}>
               <CalendarPicker
-                customDatesStyles={getCustomDateStyles()}
+                customDatesStyles={customDateStyles}
                 minDate={
                   selectedPerson ? selectedPerson.availableDates[0] : new Date()
                 }
                 maxDate={
                   selectedPerson
                     ? selectedPerson.availableDates[
-                        selectedPerson.availableDates.length - 1
-                      ]
+                    selectedPerson.availableDates.length - 1
+                    ]
                     : new Date()
                 }
-                onDateChange={(date) =>
-                  selectedPerson &&
-                  selectedPerson.availableDates.some(
-                    (availableDate) =>
-                      availableDate.getTime() === date.getTime(),
-                  )
-                    ? console.log('Data selecionada:', date)
-                    : alert('Você só pode selecionar datas em verde.')
-                }
+                onDateChange={(dateStr) => {
+                  const selectedDate = new Date(dateStr);
+                  const formattedSelectedDate = `${selectedDate.getFullYear()}-${(
+                    '0' +
+                    (selectedDate.getMonth() + 1)
+                  ).slice(-2)}-${('0' + selectedDate.getDate()).slice(-2)}`;
+
+                  if (
+                    selectedPerson &&
+                    selectedPerson.availableDates.some((availableDate) => {
+                      const formattedAvailableDate = `${availableDate.getFullYear()}-${(
+                        '0' +
+                        (availableDate.getMonth() + 1)
+                      ).slice(-2)}-${('0' + availableDate.getDate()).slice(-2)}`;
+                      return formattedSelectedDate === formattedAvailableDate;
+                    })
+                  ) {
+                    console.log('Data selecionada:', dateStr);
+                    setSelectedDate(formattedSelectedDate);
+                  } else {
+                    alert('Você só pode selecionar datas em verde.');
+                  }
+                }}
                 width={Dimensions.get('window').width * 0.9}
                 textStyle={{ fontSize: 14 }}
               />
               <TouchableOpacity
                 style={styles.confirmButton}
-                onPress={closeModal}
+                onPress={() => {
+                  closeModal();
+                  saveData();
+                }}
               >
                 <Text style={styles.confirmButtonText}>Confirmar</Text>
               </TouchableOpacity>
+
             </View>
           </View>
         </Modal>
