@@ -73,7 +73,7 @@ export default function DetailProduct() {
     const item = {
       title: title,
       subtitle: subtitle,
-      img: 'assets/adaptive-icon.png', // Certifique-se de fornecer o caminho correto para esta imagem
+      img: 'assets/adaptive-icon.png',
       price: price,
       time: time,
       nameColaborator: selectedPerson.name,
@@ -84,7 +84,7 @@ export default function DetailProduct() {
     insertItem(item)
       .then(() => {
         alert('Dados salvos com sucesso!');
-        // Redireciona o usuário ou faz alguma outra ação após salvar os dados
+        //aqui eu vou redirecionar para tela inicial
       })
       .catch((error) => {
         alert('Erro ao salvar os dados: ' + error.message);
