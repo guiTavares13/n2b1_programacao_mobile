@@ -58,39 +58,41 @@ export default function ShoppingCart() {
 
     return (
         <>
-            <View style={styles.input}>
-                <View style={styles.pickerContainer}>
-                    <Picker
-                        selectedValue={selectedCategory}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setValuesTest(itemValue)
-                        }
-                        style={styles.picker}
-                    >
-                        <Picker.Item label="Todos os produtos" value="TP" />
-                        <Picker.Item label="Estética Facial" value="EF" />
-                        <Picker.Item label="Bem estar e relaxamento" value="BER" />
-                        <Picker.Item label="Estética corporal" value="EC" />
-                        <Picker.Item label="Estética avançada" value="EA" />
-                    </Picker>
+            <View style={[{ backgroundColor: '#dee1b6', flex: 1, }]}>
+                <View style={styles.input}>
+                    <View style={styles.pickerContainer}>
+                        <Picker
+                            selectedValue={selectedCategory}
+                            onValueChange={(itemValue, itemIndex) =>
+                                setValuesTest(itemValue)
+                            }
+                            style={styles.picker}
+                        >
+                            <Picker.Item label="Todos os produtos" value="TP" />
+                            <Picker.Item label="Estética Facial" value="EF" />
+                            <Picker.Item label="Bem estar e relaxamento" value="BER" />
+                            <Picker.Item label="Estética corporal" value="EC" />
+                            <Picker.Item label="Estética avançada" value="EA" />
+                        </Picker>
+                    </View>
                 </View>
-            </View>
-            <ScrollView>
-                <View style={styles.items}>
-                    {filterProducts(selectedCategory).map(item => (
-                        <View key={item.id} style={styles.itemCart}>
-                            <ItemButtom customStyle={{ width: '75%' }}
-                                item={item} />
-                            <View style={styles.icon} >
-                                <TouchableOpacity onPress={() => handleDelete(item.id)}>
-                                    <Icon name="delete" size={30} color="red" />
-                                </TouchableOpacity>
-                            </View>
+                <ScrollView>
+                    <View style={styles.items}>
+                        {filterProducts(selectedCategory).map(item => (
+                            <View key={item.id} style={styles.itemCart}>
+                                <ItemButtom customStyle={{ width: '75%' }}
+                                    item={item} />
+                                <View style={styles.icon} >
+                                    <TouchableOpacity onPress={() => handleDelete(item.id)}>
+                                        <Icon name="delete" size={30} color="red" />
+                                    </TouchableOpacity>
+                                </View>
 
-                        </View>
-                    ))}
-                </View>
-            </ScrollView>
+                            </View>
+                        ))}
+                    </View>
+                </ScrollView>
+            </View>
         </>
 
     )
@@ -102,6 +104,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     icon: {
+        backgroundColor: '#fff',
         borderWidth: 1,
         width: 60,
         height: 98,
