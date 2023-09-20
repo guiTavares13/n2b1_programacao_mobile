@@ -31,11 +31,10 @@ export default function Products(props) {
         const defaultItems = getDefaultItems();
 
         for (const item of defaultItems) {
+            console.log(item)
             await insertItem(item);
         }
     };
-
-
 
     useEffect(() => {
         initializeDatabase()
@@ -45,13 +44,6 @@ export default function Products(props) {
             .catch(error => console.log('Erro ao inicializar banco de dados ou buscar itens', error));
     }, []);
 
-    const addItem = () => {
-        const newItemText = `Item ${items.length + 1}`;
-        insertItem(newItemText)
-            .then(() => fetchItems())
-            .then(fetchedItems => setItems(fetchedItems))
-            .catch(error => console.log('Erro ao inserir item', error));
-    };
 
     return (
         <ScrollView>
@@ -61,7 +53,6 @@ export default function Products(props) {
                 ))}
             </View>
         </ScrollView>
-
     );
 }
 

@@ -13,21 +13,26 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import CalendarPicker from 'react-native-calendar-picker';
 import CustomListView from '../components/customListView';
+import { useNavigation } from '@react-navigation/native';
 import { colaboratorData } from '../json/worker';
 import { initializeDatabase, insertItem, fetchItems, deleteAllItems } from '../database/purshase';
 
 export default function DetailProduct() {
   const route = useRoute();
-  const { id, title, subtitle, price, time } = route.params;
+  
+  const { id, title, subtitle, price, time, speciality } = route.params;
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [customDateStyles, setCustomDateStyles] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
 
+  const navigation = useNavigation();
 
   const [listVisible, setListVisible] = useState(false);
 
   useEffect(() => {
+    initializeDatabase();
+    console.log(route.params)
     if (selectedPerson) {
       setCustomDateStyles(
         selectedPerson.availableDates.map((date) => ({
@@ -77,17 +82,20 @@ export default function DetailProduct() {
       price: price,
       time: time,
       nameColaborator: selectedPerson.name,
-      specialty: subtitle,
+      speciality: speciality,
       scheduledData: selectedDate,
     };
+
+    console.log(item)
   
     insertItem(item)
       .then(() => {
         alert('Dados salvos com sucesso!');
-        //aqui eu vou redirecionar para tela inicial
+        navigation.navigate("Home")
       })
       .catch((error) => {
         alert('Erro ao salvar os dados: ' + error.message);
+        console.log(error)
       });
   };
   
@@ -118,7 +126,7 @@ export default function DetailProduct() {
         <Text style={styles.time}>Tempo médio: {time} minutos</Text>
 
         <TouchableHighlight style={styles.buttom} onPress={openList}>
-          <Text>Contratar</Text>
+          <Text>Agendar</Text>
         </TouchableHighlight>
       </View>
 

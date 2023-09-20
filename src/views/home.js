@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native"; 
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Buttom from "../components/commonButtom";
 
@@ -10,6 +11,10 @@ export default function Home() {
 
     function navigateScreem(props) {
         navigation.navigate('Products', {props});
+    }
+
+    function navigateScreemShoppingCart() {
+        navigation.navigate('ShoppingCart');
     }
 
     return(
@@ -39,6 +44,14 @@ export default function Home() {
                         navigateScreem("EA")
                       }/>
             </View>
+
+            <View style={styles.shoppingCart}>
+                <Text>Ver Carrinho de Compras</Text>
+                <TouchableHighlight onPress={ navigateScreemShoppingCart }>
+                    <Icon name="shopping-cart" size={30} color="#000" />
+                </TouchableHighlight>
+               
+            </View>
                 
         </SafeAreaView>
         
@@ -55,6 +68,10 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 35,
         margin: 10
+    },
+    shoppingCart: {
+        marginTop: 200,
+        alignItems: "center"
     },
     subtitle: {
         fontSize: 15

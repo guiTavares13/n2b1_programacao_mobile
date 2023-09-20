@@ -11,7 +11,8 @@ export const initializeDatabase = () => {
           subtitle TEXT NOT NULL,
           img TEXT NOT NULL,
           price DOUBLE NOT NULL,
-          time INT NOT NULL);`,
+          time INT NOT NULL,
+          speciality TEXT NOT NULL);`,
         [],
         (_, result) => {
           console.log("Tabela criada com sucesso.");
@@ -31,12 +32,13 @@ export const insertItem = (item) => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        'INSERT INTO products (title, subtitle, img, price, time) VALUES (?,?,?,?,?);',
+        'INSERT INTO products (title, subtitle, img, price, time, speciality) VALUES (?,?,?,?,?,?);',
         [item.title,
         item.subtitle,
         item.img,
         item.price,
-        item.time],
+        item.time,
+        item.speciality],
         (_, result) => resolve(result),
         (_, error) => reject(error)
       );

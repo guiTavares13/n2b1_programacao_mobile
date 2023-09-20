@@ -6,7 +6,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EF'
         },
         {
             id: 2,
@@ -14,7 +15,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EF'
         },
         {
             id: 3,
@@ -22,7 +24,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EF'
         },
         {
             id: 4,
@@ -30,7 +33,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EF'
         },
     ],
     BER: [
@@ -40,7 +44,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'BER'
         },
         {
             id: 2,
@@ -48,7 +53,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'BER'
         },
         {
             id: 3,
@@ -56,7 +62,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'BER'
         },
         {
             id: 4,
@@ -64,7 +71,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'BER'
         },
     ],
     EC: [
@@ -74,7 +82,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EC'
         },
         {
             id: 2,
@@ -82,7 +91,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EC'
         },
         {
             id: 3,
@@ -90,7 +100,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EC'
         },
         {
             id: 4,
@@ -98,7 +109,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EC'
         }
     ],
     EA: [
@@ -108,7 +120,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EA'
         },
         {
             id: 2,
@@ -116,7 +129,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EA'
         },
         {
             id: 3,
@@ -124,7 +138,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EA'
         },
         {
             id: 4,
@@ -132,7 +147,8 @@ export const itemsData = {
             subtitle: 'lorem Ipsun text example for uisnt ospeitr',
             img: "",
             price: 100.00,
-            time: 60
+            time: 60,
+            speciality: 'EA'
         },
     ]
 

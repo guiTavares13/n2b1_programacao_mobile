@@ -2,18 +2,18 @@ import { Text, StyleSheet, TouchableHighlight, View, Image } from "react-native"
 import { Dimensions } from 'react-native';
 import { useNavigation } from "@react-navigation/native"; 
 
-export default (props) => {
+export default ({ item, customStyle }) => {
    
-    const { id, title, subtitle, price, time } = props.item;
+    const { id, title, subtitle, price, time, speciality } = item;
 
     const navigation = useNavigation();
 
     function detailProduct() {
-        navigation.navigate('DetailProduct', { id, title, subtitle, price, time });
+        navigation.navigate('DetailProduct', { id, title, subtitle, price, time, speciality });
     }
     
     return (
-        <TouchableHighlight style={styles.container} onPress={detailProduct}>
+        <TouchableHighlight style={[styles.container, customStyle]} onPress={detailProduct}>
             <View style={styles.buttom}>
                 <View style={styles.textContainer}>
                     <Text style={styles.title}>{title}</Text>
