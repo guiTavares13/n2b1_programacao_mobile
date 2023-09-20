@@ -61,7 +61,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#dee1b6',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     subtitle: {
-        fontSize: 15
+        fontSize: 15,
+        textAlign: "center"
     },
     regionTitle: {
         alignItems: 'center',

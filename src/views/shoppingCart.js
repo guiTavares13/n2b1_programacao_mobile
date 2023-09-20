@@ -49,7 +49,7 @@ export default function ShoppingCart() {
                 const updatedCartProducts = cartProducts.filter(item => item.id !== key);
                 setCartProducts(updatedCartProducts);
                 storeData(updatedCartProducts);
-                alert('Item excluído');
+                alert('Agendamento Excluido!');
             })
             .catch((error) => {
                 console.error('Erro ao excluir item:', error);

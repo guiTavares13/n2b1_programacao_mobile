@@ -1,47 +1,65 @@
 import React from "react";
 import {
-    View,
-    Text,
-    TouchableHighlight,
-    Image,
-    StyleSheet,
-    FlatList,
-    Dimensions,
+  View,
+  Text,
+  TouchableHighlight,
+  Image,
+  StyleSheet,
+  FlatList,
+  Dimensions,
 } from "react-native";
 
+import { useState, useEffect } from "react";
+
+import imageMapping from "../../assets/imageMapping";
+
 const CustomListView = ({ colaboratorData, onItemPress }) => {
-    console.log(colaboratorData)
+    console.log("Aqui esta o colaboratir: " + colaboratorData[1].img);
     return (
-        <View style={styles.flatList}>
-            <FlatList
-                data={colaboratorData}
-                renderItem={({ item }) => (
-                    <DataItem item={item} onItemPress={onItemPress} />
-                )}
-                keyExtractor={(item) => item.id.toString()}
-            />
+      <View style={styles.flatList}>
+        <FlatList
+          data={colaboratorData}
+          renderItem={({ item }) => (
+              // Pass item.img instead of colaboratorData[item.img]
+              <DataItem item={item} img={item.img} onItemPress={onItemPress} />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+    );
+  };
+  
+
+const DataItem = ({ item, img, onItemPress }) => {
+    const [imageSource, setImageSource] = useState(null);
+  
+    console.log(imageSource)
+  
+    useEffect(() => {
+        if (imageMapping.hasOwnProperty(img)) {
+          setImageSource({ uri: 'assets/workers/' + imageMapping[img] });
+        }
+      }, [img]);
+      
+      
+  function detailProduct() {
+    onItemPress(item);
+  }
+
+  return (
+    <TouchableHighlight style={styles.container} onPress={detailProduct}>
+      <View style={styles.button}>
+        <Text>{item.name}</Text>
+        <View style={styles.img}>
+        <Image style={{ width: 80, height: 80, borderRadius: 10 }} source={imageSource}  />
+
         </View>
-
-    );
-};
-
-const DataItem = ({ item, onItemPress }) => {
-
-
-    function detailProduct() {
-        onItemPress(item);
-    }
-
-    return (
-        <TouchableHighlight style={styles.container} onPress={detailProduct}>
-            <View style={styles.button}>
-                <Text>{item.name}</Text>
-                <View style={styles.img}>
-                    <Image style={{ width: 50, height: 50 }} source={{ uri: 'assets/adaptive-icon.png' }} />
-                </View>
-            </View>
-        </TouchableHighlight>
-    );
+      </View>
+    </TouchableHighlight>
+  );
+  
+  
+  
 };
 
 
@@ -56,7 +74,8 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     img: {
-        borderWidth: 1,
+        borderWidth: 0.2,
+        borderRadius: 10,
         width: Dimensions.get('window').width * 0.80,
         height: Dimensions.get('window').width * 0.70,
         alignSelf: 'center',
@@ -68,10 +87,13 @@ const styles = StyleSheet.create({
     },
     button: {
         flex: 1,
+        backgroundColor: '#fff',
+        borderRadius: 10,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         padding: 10,
+        paddingLeft: 40
     },
     textContainer: {
         flexDirection: "column",
@@ -92,7 +114,8 @@ const styles = StyleSheet.create({
     },
     img: {
         marginRight: 10,
-        borderWidth: 1,
+        borderWidth: 0.3,
+        borderRadius: 10
     },
 });
 

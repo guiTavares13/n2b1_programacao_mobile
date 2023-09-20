@@ -16,23 +16,29 @@ import CustomListView from '../components/customListView';
 import { useNavigation } from '@react-navigation/native';
 import { colaboratorData } from '../json/worker';
 import { initializeDatabase, insertItem, fetchItems, deleteAllItems } from '../database/purshase';
+import imageMapping from '../../assets/imageMapping.js';
 
 export default function DetailProduct() {
   const route = useRoute();
   
-  const { id, title, subtitle, price, time, speciality } = route.params;
+  const { id, title, subtitle, img, price, time, speciality } = route.params;
+  console.log('Valor de img:', img);
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState(null);
   const [customDateStyles, setCustomDateStyles] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [imageSource, setImageSource] = useState(null);
+
 
   const navigation = useNavigation();
 
   const [listVisible, setListVisible] = useState(false);
 
   useEffect(() => {
+    setImageSource(imageMapping[img]);
+    console.log(imageMapping);
     initializeDatabase();
-    console.log(route.params)
+    console.log(route.params);
     if (selectedPerson) {
       setCustomDateStyles(
         selectedPerson.availableDates.map((date) => ({
@@ -43,7 +49,8 @@ export default function DetailProduct() {
         }))
       );
     }
-  }, [selectedPerson]);
+  }, [selectedPerson, img]);
+  
 
   const openCalendar = () => {
     setListVisible(false);
@@ -90,7 +97,7 @@ export default function DetailProduct() {
   
     insertItem(item)
       .then(() => {
-        alert('Dados salvos com sucesso!');
+        alert('Procedimento agendado!');
         navigation.navigate("Home")
       })
       .catch((error) => {
@@ -116,10 +123,7 @@ export default function DetailProduct() {
         <Text style={styles.subtitle}>{subtitle}</Text>
 
         <View style={styles.img}>
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={{ uri: 'assets/adaptive-icon.png' }}
-          />
+        {imageSource && <Image style={{ borderRadius: 10, width: 90, height: 80, borderRadius: 10, width: '100%', height: '100%' }} source={imageSource} />}
         </View>
 
         <Text style={styles.price}>R$ {price}</Text>
@@ -204,14 +208,13 @@ export default function DetailProduct() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#dee1b6',
     alignItems: 'center',
     justifyContent: 'center',
   },
   modalContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     position: 'absolute',
     top: 0,
     bottom: 0,
@@ -219,6 +222,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   product: {
+    backgroundColor: '#fff',
     borderWidth: 1,
     borderRadius: 10,
     width: Dimensions.get('window').width * 0.9,
@@ -230,10 +234,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: '#dee1b6',
   },
   img: {
-    borderWidth: 1,
+    borderWidth: 0.2,
+    borderRadius: 10,
     width: Dimensions.get('window').width * 0.8,
     height: Dimensions.get('window').width * 0.7,
     alignSelf: 'center',
@@ -259,6 +264,7 @@ const styles = StyleSheet.create({
   },
   buttom: {
     borderWidth: 1,
+    backgroundColor: 'green',
     borderRadius: 8,
     width: 200,
     height: 50,

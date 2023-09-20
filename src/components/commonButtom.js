@@ -12,6 +12,7 @@ export default (props) => {
 const styles = StyleSheet.create({
     buttom: {
         borderWidth: 1,
+        backgroundColor: '#73c8a9',
         borderRadius: 8,
         width: 200,
         height: 50,

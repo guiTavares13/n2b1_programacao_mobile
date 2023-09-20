@@ -46,7 +46,7 @@ export default function Products(props) {
 
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             <View style={styles.items}>
                 {items.map(item => (
                     <ItemButtom key={item.id} item={item} />
@@ -57,6 +57,9 @@ export default function Products(props) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#dee1b6'
+    },
     buttom: {
         borderWidth: 1,
         borderRadius: 8,
